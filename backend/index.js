@@ -1,5 +1,6 @@
 import express from 'express';
-import { PORT } from './config.js';
+import { PORT, mongoDBURL } from './config.js';
+import mangoose from 'mongoose';
 
 const app = express();
 
@@ -8,6 +9,14 @@ app.get('/', (req, res) => {
     return res.status(234).send('Welcome to MERN STACK tutorial')
 });
 
-app.listen(PORT, () => {
-    console.log(`App is listening to port: ${PORT}`);
+mangoose.connect(mongoDBURL)
+.then(() => {
+    console.log('Connected to Database successfully');
+    app.listen(PORT, () => {
+        console.log(`App is listening to port: ${PORT}`);
+    })
 })
+.catch((error) => {
+    console.log(error);
+})
+
