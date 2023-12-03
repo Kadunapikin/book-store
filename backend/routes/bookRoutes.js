@@ -1,8 +1,9 @@
-import express from express;
+import express from 'express';
+
 const router = express();
 
 //Route to create new book
-app.post('/books', async (req, res) => {
+router.post('/books', async (req, res) => {
     try {
         if(!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all required field: title, author and publishYear'});
@@ -24,7 +25,7 @@ app.post('/books', async (req, res) => {
 
 
 // Route to get books from th database
-app.get('/books', async (req, res) => {
+router.get('/books', async (req, res) => {
     try {
         const books = await Book.find({})
         res.status(200).json({
@@ -38,7 +39,7 @@ app.get('/books', async (req, res) => {
 });
 
 //route to get a single book from the database
-app.get('/books/:id', async (req, res) => {
+router.get('/books/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const book = await Book.findById(id)
@@ -50,7 +51,7 @@ app.get('/books/:id', async (req, res) => {
 });
 
 //Route to update a book
-app.put('/books/:id', async (req,res) => {
+router.put('/books/:id', async (req,res) => {
     try {
         if(!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all required field: title, author and publishYear'});
@@ -69,7 +70,7 @@ app.put('/books/:id', async (req,res) => {
 });
 
 //Route to delete a book
-app.delete('/books/:id', async (req,res) => {
+router.delete('/books/:id', async (req,res) => {
     try {
         const { id } = req.params;
         const result = await Book.findByIdAndDelete(id);
