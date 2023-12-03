@@ -1,6 +1,7 @@
 import express from 'express';
 
 const router = express();
+import { Book } from '../models/bookModel';
 
 //Route to create new book
 router.post('/books', async (req, res) => {
@@ -84,3 +85,5 @@ router.delete('/books/:id', async (req,res) => {
         res.status(500).send({ message: error.message });
     }
 });
+
+export default router;
