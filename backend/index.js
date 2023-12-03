@@ -4,8 +4,11 @@ import mangoose from 'mongoose';
 import { Book } from './models/bookModel.js';
 
 const app = express();
+//Middleware for parsing request body
+app.use(express.json());
 
-app.post('/book', async (req, res) => {
+//Route to create new book
+app.post('/books', async (req, res) => {
     try {
         if(!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all required field: title, author and publishYear'});
@@ -25,10 +28,22 @@ app.post('/book', async (req, res) => {
     }
 });
 
-
 app.get('/', (req, res) => {
     console.log(`welcome to MERN-STACK tutorial`);
     return res.status(234).send('Welcome to MERN STACK tutorial')
+});
+
+app.get('/books', async (req, res) => {
+    try {
+        const books = await Book.find({})
+        res.status(200).json({
+            count: books.length,
+            data: books
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: error.message });
+    }
 });
 
 mangoose.connect(mongoDBURL)
