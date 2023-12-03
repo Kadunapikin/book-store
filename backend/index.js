@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
     return res.status(234).send('Welcome to MERN STACK tutorial')
 });
 
+// Route to get books from th database
 app.get('/books', async (req, res) => {
     try {
         const books = await Book.find({})
@@ -45,6 +46,19 @@ app.get('/books', async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 });
+
+//route to get a single book from the database
+app.get('/books/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const book = await Book.findById(id)
+        res.status(200).json(book);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: error.message });
+    }
+});
+
 
 mangoose.connect(mongoDBURL)
 .then(() => {
