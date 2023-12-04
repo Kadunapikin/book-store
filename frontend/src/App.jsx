@@ -1,10 +1,9 @@
-import './App.css'
+import React from 'react'
 
-function App() {
-
+const App = () => {
   return (
-    <div>
-      <h1>A simple project to test CORS POLICY in Node.js</h1>
+    <div className='bg-red-400 text-white'>
+      App is working fine
     </div>
   )
 }
