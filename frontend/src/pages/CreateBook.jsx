@@ -28,7 +28,6 @@ const CreateBook = () => {
       alert('An error happened, please check the console');
       setLoading(false);
     })
-
   }
 
   return (
